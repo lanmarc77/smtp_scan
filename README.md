@@ -1,5 +1,6 @@
-## 01 Emailextractor, extract.pl, btw21.txt
+## 01 Emailextractor, extract.pl, btw21.txt, (emails.txt)
 Nimmt die Datei btw21.txt und extrahiert alles an Landkreisen und Mailadressen, was auffindbar ist. Die Mailadressen werden mithilfe eines DNS MX checks auf (grobe) Gültigkeit geprüft und in einer sqlite Datenbank mit Zuordnung zum Landkreis und Bundesland abgespeichert.
+Sofern eine Date emails.txt existiert, wird statt der btw21.txt diese verwendet. Die emails.txt enthält einfach in jeder Zeile eine zu prüfende Emailadresse. Gedacht als Einstieg in einen eigenen schnellen Scan.
 
 ## 02 Scanner, scan.pl, openssl.cnf
 Nimmt sich jede Maildomain aus der sqlite Datenbank vor und ermittelt alle MX Einträge, und für jeden MX Eintrag jede IPv4 dieses MX. Dann wird mithilfe von openssl s_client ein Verbindungsversuch mit smtp und STARTTLS durchgeführt und die Ausgaben dieses Versuches werden in der sqlite Datenbank gespeichert, unter Zuordnung, zu welchen Maildomains dieser Scan dieses Mailservers gehört. Dabei wird die im gleichen Verzeichnis liegende Konfiguration der openssl.cnf genutzt, um der Debian 2048 bit Einstellung zu entgehen. Es wird eine Deduplizierung der Mailserver durchgeführt, so dass jeder MX+IP nur einmal gescannt wird.
