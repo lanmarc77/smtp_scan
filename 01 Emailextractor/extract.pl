@@ -8,6 +8,23 @@ $dbh->do("CREATE TABLE IF NOT EXISTS federal_states (id integer primary key auto
 $dbh->do("CREATE TABLE IF NOT EXISTS electoral_districts (id integer not null unique,name string not null unique,federal_state_id integer not null, primary key(id,name,federal_state_id))");
 $dbh->do("CREATE TABLE IF NOT EXISTS email_contacts (electoral_state_id integer,federal_state_id integer,mail string not null,primary key(electoral_state_id,federal_state_id,mail))");
 
+#if an own emails.txt exists ignore other lists and only insert emails from this list
+if(-e "emails.txt"){
+    if(open(F,"emails.txt")){
+	my $sth=$dbh->prepare("INSERT INTO federal_states(name,start_number,end_number) VALUES(?,?,?)");
+	$sth->bind_param( 1, "manual" );
+	$sth->bind_param( 2, 500 );
+	$sth->bind_param( 3, 500 );
+	$sth->execute();
+	$sth->finish();
+	while(my $email=<F>){
+	    handleElectoralDistrict("500 manual",$email);
+	}
+	close(F);
+    }
+    exit;
+}
+
 my %bund=(
     "1,11"=>"Schleswig-Holstein",
     "12,17"=>"Mecklenburg-Vorpommern",
