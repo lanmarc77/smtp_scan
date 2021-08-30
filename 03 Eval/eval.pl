@@ -83,7 +83,6 @@ while (my @row = $sth->fetchrow_array) {
 	$affectedMailDomains{$mailDomain}=1;
     }
 }
-
 exit;
 
 sub getCertificateChain{

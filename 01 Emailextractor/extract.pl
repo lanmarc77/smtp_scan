@@ -175,6 +175,14 @@ sub substitudeDomain{
 	"neckar-odenwaldkreis.de"=>"neckar-odenwald-kreis.de",
 	"neckarodenwald-kreis.de"=>"neckar-odenwald-kreis.de",
 	"saarpfalzkreis.de"=>"saarpfalz-kreis.de",
+	"charlottenburgwilmersdorf.de" => "charlottenburg-wilmersdorf.de",
+	"rhein-neckarkreis.de" => "rhein-neckar-kreis.de",
+	"rheinkreis-neuss.de" => "rhein-kreis-neuss.de",
+	"kreiscoesfeld.de" => "kreis-coesfeld.de",
+	"stadthagen.de" => "stadt-hagen.de",
+	"landkreisfulda.de" => "landkreis-fulda.de",
+	"rheingautaunus.de" => "rheingau-taunus.de",
+	"cochemzell.de" => "cochem-zell.de"
     );
     foreach(keys(%substMatrix)){
 	if($_ eq $origName){
